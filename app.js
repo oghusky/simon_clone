@@ -1,77 +1,87 @@
-const buttons = document.querySelectorAll(".box");
-const gamePickedColors = [];
-const userPickedColors = [];
 
-gameChosenColors();
+const buttons = document.querySelectorAll(".box");
+const colors = ["purple", "blue", "green", "orange"];
+const gamePickedColors = [];
+let colorsLength = 0;
+
+window.addEventListener("load", () => {
+    const startBtn = document.querySelector("#start");
+    const main = document.querySelector("main");
+    main.style.display = "none";
+    startBtn.addEventListener("click", e => {
+        main.style.display = "flex";
+        gameChosenColors(colors)
+        e.target.style.display = "none"
+    });
+})
+
+
 
 buttons.forEach(button => {
     button.addEventListener("click", (e) => {
         const btnValue = button.getAttribute("value");
-        pushUserPicks(btnValue);
-        button.style.backgroundColor = changePressedColors(btnValue);
+        pressBtnColorChange(button, btnValue);
+        checkIfCorrect(button, btnValue);
     });
 });
 
+function checkIfCorrect(btn, btnValue) {
+    let isTrue;
+    for (let i = 0; i < gamePickedColors.length; i++) {
+        if (btnValue !== gamePickedColors[colorsLength]) {
+            isTrue = false
+        } else {
+            playColorAudio(btnValue);
+            colorsLength++
+        }
+    }
+    if (colorsLength === gamePickedColors.length) {
+        isTrue = true;
+        colorsLength = 0;
+    }
+    if (!colorsLength && isTrue) {
+        gameChosenColors();
+    }
+    return isTrue
+}
+
 function gameChosenColors() {
-    const colors = ["purple", "blue", "green", "orange"];
-    const newPick = colors[Math.floor(Math.random() * colors.length)];
-    gamePickedColors.push(newPick);
-    showPressedButton(gamePickedColors);
+    let length = gamePickedColors.length;
+    gamePickedColors.push(pickRandomColor(colors));
+    if (length >= 1 && gamePickedColors[length] === gamePickedColors[length - 1]) {
+        gamePickedColors.pop();
+        gameChosenColors();
+    }
     console.log(gamePickedColors);
+    setTimeout(() => {
+        computerPressButton(gamePickedColors);
+    }, 1000)
     return gamePickedColors;
 }
 
-function pressButton(btnValue) {
-    switch (btnValue) {
-        case "purple":
-            console.log("Button Pressed: ",btnValue);
-            break;
-        case "blue":
-            console.log("Button Pressed: ",btnValue);
-            break;
-        case "green":
-            console.log("Button Pressed: ",btnValue);
-            break;
-        case "orange":
-            console.log("Button Pressed: ",btnValue);
-            break;
-        default:
-            console.log("Error");
-            break;
-    }
+function pickRandomColor(colors) {
+    return colors[Math.floor(Math.random() * colors.length)];
 }
 
-function showPressedButton(colors) {
-    colors.forEach((color, index) => {
-        const timer = setTimeout(() => pressButton(color), index * 1000);
-        // clearInterval(timer);
-    });
+function playColorAudio(btnValue) {
+    document.getElementById(`${btnValue}_mp3`).play()
 }
 
-function pushUserPicks(color) {
-    userPickedColors.push(color);
-    gameChosenColors();
-    return userPickedColors;
+function pressBtnColorChange(button, btnValue) {
+    button.classList.add(`new_${btnValue}`);
+    playColorAudio(btnValue);
+    setTimeout(() => {
+        button.classList.remove(`new_${btnValue}`)
+    }, 100)
 }
 
-function changePressedColors(color) {
-    let newColor;
-    switch (color) {
-        case "purple":
-            newColor = "#BA68C8"
-            break;
-        case "blue":
-            newColor = "#536DFE"
-            break;
-        case "green":
-            newColor = "#00E676"
-            break;
-        case "orange":
-            newColor = "#FBC02D"
-            break;
-        default:
-            console.log("Error");
-            break;
-    }
-    return newColor;
+function computerPressButton(arr) {
+    let i = 0;
+    arr.forEach(color => {
+        const btn = document.querySelector(`.${color}`);
+        setTimeout(() => {
+            pressBtnColorChange(btn, color);
+        }, i * 1000);
+        i++;
+    })
 }

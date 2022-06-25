@@ -1,43 +1,93 @@
-:root{
+:root {
     --d-grey: #212121;
     --black: #000;
     --orange: #ffa900;
+    --new_orange: #a87b09;
     --purple: #b23cfd;
+    --new_purple: #691178;
     --green: #00b74a;
-    --blue: #1266f1;
+    --new_green: #085630;
+    --blue: #367ef1;
+    --new_blue: #1a30b0;
 }
-*{
+
+* {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
 
-html, body{
+.orange {
+    background-color: var(--orange);
+}
+
+.new_orange {
+    background-color: var(--new_orange);
+}
+
+.purple {
+    background-color: var(--purple);
+}
+
+.new_purple {
+    background-color: var(--new_purple);
+}
+
+.green {
+    background-color: var(--green);
+}
+
+.new_green {
+    background-color: var(--new_green);
+}
+
+.blue {
+    background-color: var(--blue);
+}
+
+.new_blue {
+    background-color: var(--new_blue);
+}
+
+html,
+body {
     width: 100%;
 }
 
-body{
+body {
     background-color: var(--black);
 }
 
-main{
+main {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-#center{
+#center {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
-    height: calc(25%);
-    width: calc(25%);
+    transform: translate(-50%, -50%);
+    min-height: calc(25%);
+    min-width: calc(25%);
     background-color: var(--d-grey);
-    border-radius: 40px;
+    border-radius: 50%;
 }
 
-#board{
+#start {
+    display: block;
+    margin: 50px auto;
+    background-color: var(--blue);
+    color: white;
+    font-size: 32px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    padding: 1rem;
+}
+
+#board {
     background-color: var(--d-grey);
     width: calc(80% - 10px);
     height: 600px;
@@ -47,40 +97,37 @@ main{
     padding: 2rem;
 }
 
-.box{
+.box {
     width: calc(100% - 27px);
     height: calc(100% - 27px);
     margin: 1rem;
     border-radius: 10px;
 }
 
-#boxone{
-    background-color: var(--purple);
+#boxone {
     border-top-left-radius: 40px;
 }
 
-#boxtwo{
-    background-color: var(--blue);
+#boxtwo {
     border-top-right-radius: 40px;
 }
 
-#boxthree{
-    background-color: var(--green);
+#boxthree {
     border-bottom-left-radius: 40px;
 }
 
-#boxfour{
-    background-color: var(--orange);
+#boxfour {
     border-bottom-right-radius: 40px;
 }
 
 @media screen and (max-width: 415px) {
-    #board{
+    #board {
         margin-top: 30px;
         width: 100%;
         padding: .25rem;
     }
-    #center{
+
+    #center {
         width: calc(35%);
         height: calc(30%);
     }

@@ -7,16 +7,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tap-Up</title>
     <link rel="stylesheet" href="styles.css">
+    <audio id="blue_mp3" src="./blue.mp3" preload="auto"></audio>
+    <audio id="green_mp3" src="./green.mp3" preload="auto"></audio>
+    <audio id="orange_mp3" src="./orange.mp3" preload="auto"></audio>
+    <audio id="purple_mp3" src="./purple.mp3" preload="auto"></audio>
+    <audio id="error_mp3" src="./error.mp3" preload="auto"></audio>
 </head>
 
 <body>
+    <button id="start">START</button>
     <main>
-        <div id="center"></div>
+        <div id="center">
+        </div>
         <section id="board">
-            <button class="box" value="purple" id="boxone"></button>
-            <button class="box" value="blue" id="boxtwo"></button>
-            <button class="box" value="green" id="boxthree"></button>
-            <button class="box" value="orange" id="boxfour"></button>
+            <button class="box purple" value="purple" id="boxone"></button>
+            <button class="box blue" value="blue" id="boxtwo"></button>
+            <button class="box green" value="green" id="boxthree"></button>
+            <button class="box orange" value="orange" id="boxfour"></button>
         </section>
     </main>
     <script src="app.js"></script>
